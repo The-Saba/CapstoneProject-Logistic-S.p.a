@@ -1,0 +1,5 @@
+#Ignore this folder
+
+.git/
+.idea/
+.venv/
