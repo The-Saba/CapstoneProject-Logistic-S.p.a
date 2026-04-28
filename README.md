@@ -43,11 +43,6 @@ The company has hired a Data Science team to conduct a comprehensive **customer 
 - **dataset.csv** - Main customer and transaction dataset
 - **Ateco.xls** - ATECO mapping file for economic sector classification
 
-### Technologies Used
-- **Python** (96.9%) - Primary language for data analysis and modeling
-- **JavaScript** (1.8%) - Frontend/visualization components
-- **C/C++** (0.7%) - Performance-critical operations
-- **Jupyter Notebook** - Interactive analysis and documentation
 
 ## Key Deliverables
 
