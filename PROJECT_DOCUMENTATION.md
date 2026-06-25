@@ -101,6 +101,19 @@ The main goals are:
   - Build a dashboard or summary report for stakeholders.
   - Add tests or validation checks for missing values, duplicate rows, and mapping coverage.
 
+## Interpretation of K-Means vs DBSCAN
+Based on the current clustering run in `Clustering.ipynb`, the two methods offer different trade-offs:
+
+- **K-Means with `K=3`** is the strongest overall default choice for this dataset. It achieved the best silhouette score in the current test (`0.337`), a low Davies-Bouldin index (`1.032`), and a very high Calinski-Harabasz score (`6752.0`). It also assigns every client to a cluster, which makes it easier to explain and use for business segmentation.
+- **K-Means with `K=5`** is still a reasonable option if a more granular segmentation is desired, but it is weaker than `K=3` on the current metrics (`silhouette = 0.285`, `DBI = 1.142`, `CH = 6556.2`). It may be useful when the business wants more segments, but the added detail should be validated against interpretability and stability.
+- **DBSCAN with a 3-cluster setting** is promising when the objective is to find dense and compact groups while tolerating some noise. In the current test, it achieved a higher silhouette on core points (`0.577`) and a lower DBI (`0.738`), but it marked `263` clients as noise (`1.6%`). This suggests DBSCAN is identifying strong dense groups, but it does not cover the full population as neatly as K-Means.
+- **DBSCAN with a 5-cluster setting** was less stable in this run (`silhouette = -0.010`, `CH = 181.4`, `8.4%` noise). That indicates the chosen `eps` and `min_samples` values are more sensitive here, so this configuration should be treated as a secondary or exploratory option rather than the main segmentation model.
+
+### Practical recommendation
+- For a primary business segmentation model, prefer **K-Means with `K=3`**.
+- For anomaly detection or for identifying dense core groups while leaving some points unassigned, keep **DBSCAN** as a complementary method.
+- If the business wants more detailed segments, test **K-Means with `K=5`** further, but review whether the extra granularity is actually useful.
+
 ## Recommended Execution Order
 1. Run `Exploration_analysis.ipynb` to produce the cleaned dataset.
 2. Run `EDA.ipynb` to perform exploratory analysis and understand variable distributions.
